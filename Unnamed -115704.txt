@@ -1,0 +1,101 @@
+SELECT
+    MONTH(shop_basic.stat_date) as month_,
+    shop_basic.country_code,
+    shop_basic.organization_type,
+    city_name,
+    first_online_date,
+    COUNT(distinct shop_basic.shop_id) as shop_cnt,
+    SUM(complete_orders) as complete_orders,
+    SUM(complete_orders)/COUNT(DISTINCT shop_basic.stat_date) as daily_orders
+FROM
+    (
+        select
+            concat_ws('-', year, month, day) as stat_date,
+            country_code,
+            shop_id,
+            city_name,
+            case
+                when organization_type = 1 then 'KA'
+                when organization_type = 2 then 'CKA'
+                when organization_type = 3 then 'DK'
+                when organization_type = 4 then 'Normal'
+                when organization_type = 5 then 'Other'
+                else ''
+            end as organization_type        
+        from
+            soda_international_dwm.dwm_bizopp_wide_d_whole
+        where
+            country_code in ('MX', 'CO', 'CR', 'PE')
+            and concat_ws('-', year, month, day) between '2024-06-01'
+            AND '2024-06-30'
+            and organization_type in (2,4)
+            and shop_id is not null
+            and business_type = 1
+    ) as shop_basic
+    left join (
+        select
+            concat_ws('-', year, month, day) as stat_date,
+            shop_id,
+            nvl(complete_order_num, 0) as complete_orders
+        from
+            soda_international_dwm.dwm_shop_wide_d_whole
+        where
+            concat_ws('-', year, month, day) between '2024-06-01'
+            AND '2024-06-30'
+            AND country_code in('MX', 'CO', 'CR', 'PE')
+    ) as active_stats on shop_basic.shop_id = active_stats.shop_id
+    and shop_basic.stat_date = active_stats.stat_date
+    left join (
+        select
+            concat_ws('-', year, month, day) as stat_date,
+            shop_id,
+            DATE(substr(first_online_time, 1, 10)) as first_online_date,
+            IF(
+                IF(first_online_time is not null, 1, 0) = 1,(
+                    datediff(
+                        concat_ws('-', year, month, day),
+                        substr(first_online_time, 1, 10)
+                    ) + 1
+                ),
+                0
+            ) as lifecycle_days,
+            CASE
+                WHEN datediff(
+                    concat_ws('-', year, month, day),
+                    substr(first_online_time, 1, 10)
+                ) + 1 >= 14
+                AND IF(first_online_time is not null, 1, 0) = 1 THEN 1
+                ELSE 0
+            END as is_elc_churn_base,
+            CASE
+                WHEN datediff(
+                    concat_ws('-', year, month, day),
+                    substr(first_online_time, 1, 10)
+                ) + 1 <= 60
+                AND IF(first_online_time is not null, 1, 0) = 1 THEN 'ELC'
+                WHEN datediff(
+                    concat_ws('-', year, month, day),
+                    substr(first_online_time, 1, 10)
+                ) + 1 > 60
+                AND IF(first_online_time is not null, 1, 0) = 1 THEN 'Mature'
+                ELSE 'Not First Online'
+            END as lifecycle_type
+        from
+            soda_international_dwm.dwm_bizopp_sign_process_d_whole
+        where
+            is_signed = 1
+            and concat_ws('-', year, month, day) between '2024-06-01'
+            and '2024-06-30'
+            and country_code in ('MX', 'CO', 'CR', 'PE')
+            and shop_id is not null
+    ) as lifecycle on shop_basic.shop_id = lifecycle.shop_id
+    and shop_basic.stat_date = lifecycle.stat_date
+where
+    YEAR(first_online_date) = 2024
+GROUP BY
+    MONTH(shop_basic.stat_date),
+    shop_basic.country_code,
+    shop_basic.city_name,
+    shop_basic.organization_type,
+    lifecycle_type,
+    first_online_date;
