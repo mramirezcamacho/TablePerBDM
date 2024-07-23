@@ -1,4 +1,5 @@
 import pandas as pd
+from pprint import pprint
 
 
 class BD():
@@ -113,3 +114,6 @@ def citiesPerBDM() -> list:
                     bd_ML.addBD(bd)
                 bds.append(bd_ML)
     return bds
+
+
+bds = citiesPerBDM()
