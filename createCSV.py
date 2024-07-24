@@ -11,6 +11,12 @@ def createFolderIfNotExists(folder):
         os.makedirs(folder)
 
 
+def isBoth(column):
+    if column in ['SME Total Rs Acquired (By BDs)', 'CKA Total Rs Acquired (By BDs)']:
+        return False
+    return True
+
+
 def getCSVDistribution():
     FarmingCKAData = ['Daily Orders CKA', 'CKA Daily Orders for Rs FO in current year',
                       'CKA # of R1s  (5+ Daily Orders)', 'Promotional Coverage', 'Promotion quality', 'CKAs B cancellation rate', 'CKAs imperfect orders',]
@@ -123,8 +129,15 @@ def main():
             for key in list(bd.calculateDistribution().keys()):
                 if role in key and organization in key:
                     keys.append(key)
+            columns = columnsNeeded[seccion]
             valuesToConsider = {}
             for key in keys:
+                ckasme, country, city, role = key.split('_')
+                roleOpuesto = 'Hunter' if role == 'Farmer' else 'Farmer'
+                if f'{ckasme}_{country}_{city}_{roleOpuesto}' in distributionOfBDsPerCountryPerRolePerOrganization():
+                    newKey = f'{ckasme}_{country}_{city}_BOTH'
+                    valuesToConsider[newKey] = bd.calculateDistribution(
+                    )[key]/(distributionOfBDsPerCountryPerRolePerOrganization()[key]+distributionOfBDsPerCountryPerRolePerOrganization()[f'{ckasme}_{country}_{city}_{roleOpuesto}'])
                 valuesToConsider[key] = bd.calculateDistribution(
                 )[key]/distributionOfBDsPerCountryPerRolePerOrganization()[key]
             paises2consider: list = []
@@ -133,7 +146,6 @@ def main():
                     paises2consider.append(key.split('_')[1])
             paises2consider.sort()
 
-            columns = columnsNeeded[seccion]
             for column in columns:
                 table = getTablePerColumn(column)
                 numbers = rawData[rawData['Requirements'] == column].copy()
@@ -191,8 +203,14 @@ def main():
                                             print(f'{ciudad} not in table')
                                             print(f'column {column}')
                                         else:
-                                            suma += number*value * \
-                                                table[f'{organization}_{pais}'][ciudad]
+                                            if isBoth(column) and 'BOTH' in key:
+                                                suma += number*value * \
+                                                    table[f'{organization}_{pais}'][ciudad]
+                                            elif not isBoth(column) and 'BOTH' not in key:
+                                                suma += number*value * \
+                                                    table[f'{organization}_{pais}'][ciudad]
+                                            else:
+                                                continue
                                     except:
                                         print('organizacion', organization)
                                         print('pais', pais)
