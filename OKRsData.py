@@ -2,45 +2,42 @@ import pandas as pd
 from pprint import pprint
 
 
+def prettifyName(name):
+    name = name.replace('á', 'a').replace('é', 'e').replace(
+        'í', 'i').replace('ó', 'o').replace('ú', 'u')
+    if name == 'Bogota, D.C.':
+        return 'Bogota D.C.'
+    if name == 'Juarez(CHIH)':
+        return 'Juarez CHIH'
+    if 'Juarez(CHIH)' in name:
+        city = 'Juarez CHIH'
+    return name
+
+
 def generalGetter(file, column) -> dict:
     data = pd.read_csv(file)
+    data['city_name'] = data['city_name'].apply(prettifyName)
     result = {}
     for organization_type in ['SME', 'CKA']:
         for country in ['MX', 'CO', 'CR', 'PE']:
-            smallData = data[data['organization_type'] == organization_type]
-            smallData = smallData[smallData['country_code'] == country]
-            smallData[column] = smallData[column].replace(
-                to_replace='-', value=0, regex=True)
-            smallData[column] = pd.to_numeric(
-                smallData[column], errors='coerce').fillna(0)
-            totalStoresInThatCountry = smallData[column].sum(
-            )
+            smallData = data[(data['organization_type'] == organization_type) &
+                             (data['country_code'] == country) &
+                             (data[column].notna()) &
+                             (data[column] != '-') &
+                             (data[column] != '0') &
+                             (data[column] != 0)]
+            sumaGrande = 0
+            for i, x in smallData.iterrows():
+                sumaGrande += float(x[column])
 
-            cities = smallData['city_name'].unique()
+            cities = smallData['city_name'].apply(prettifyName).unique()
             percentage = {}
             for city in cities:
-                if 'ogot' in city:
-                    city = 'Bogotá D.C.'
-                if 'Juarez(CHIH)' in city:
-                    city = 'Juarez CHIH'
-                if 'á' in city:
-                    city = city.replace('á', 'a')
-                if 'é' in city:
-                    city = city.replace('é', 'e')
-                if 'í' in city:
-                    city = city.replace('í', 'i')
-                if 'ó' in city:
-                    city = city.replace('ó', 'o')
-                if 'ú' in city:
-                    city = city.replace('ú', 'u')
-                if 'ú' in city:
-                    city = city.replace('ú', 'u')
-
                 cityData = smallData[smallData['city_name'] == city]
-                cityStores = cityData[column].sum(
-                )
-                percentage[city] = float(
-                    float(cityStores) / float(totalStoresInThatCountry))
+                sumaChiquita = 0
+                for i, x in cityData.iterrows():
+                    sumaChiquita += float(x[column])
+                percentage[city] = (sumaChiquita / sumaGrande)
             result[f'{organization_type}_{country}'] = percentage
     return result
 

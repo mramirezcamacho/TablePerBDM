@@ -1,11 +1,11 @@
 Farming BDM claudiarodriguez
 CKA
 Tiene los siguientes BDs:
-lorenagomezchavez: de la ciudad de:Querétaro, como Farmer, para los Rs CKA, en el país MX
-kgutierrezzamudio: de la ciudad de:León, como Farmer, para los Rs CKA, en el país MX
+lorenagomezchavez: de la ciudad de:Queretaro, como Farmer, para los Rs CKA, en el país MX
+kgutierrezzamudio: de la ciudad de:Leon, como Farmer, para los Rs CKA, en el país MX
 josecoriagarcia: de la ciudad de:Morelia, como Farmer, para los Rs CKA, en el país MX
 egamboamiranda: de la ciudad de:Pachuca, como Farmer, para los Rs CKA, en el país MX
-anacovarrubias: de la ciudad de:Mérida, como Farmer, para los Rs CKA, en el país MX
-oscarcaamalcab: de la ciudad de:Cancún, como Farmer, para los Rs CKA, en el país MX
+anacovarrubias: de la ciudad de:Merida, como Farmer, para los Rs CKA, en el país MX
+oscarcaamalcab: de la ciudad de:Cancun, como Farmer, para los Rs CKA, en el país MX
 josevaldiviaflores: de la ciudad de:Guadalajara, como Farmer, para los Rs CKA, en el país MX
-drodriguezpozos: de la ciudad de:San Luis Potosí, como Farmer, para los Rs CKA, en el país MX
+drodriguezpozos: de la ciudad de:San Luis Potosi, como Farmer, para los Rs CKA, en el país MX

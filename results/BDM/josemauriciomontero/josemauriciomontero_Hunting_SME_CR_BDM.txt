@@ -1,5 +1,5 @@
 Hunting BDM josemauriciomontero
 SME
 Tiene los siguientes BDs:
-wagnerblanco: de la ciudad de:San José, como Hunter, para los Rs SME, en el país CR
-alejandrobarboza: de la ciudad de:San José, como Hunter, para los Rs SME, en el país CR
+wagnerblanco: de la ciudad de:San Jose, como Hunter, para los Rs SME, en el país CR
+alejandrobarboza: de la ciudad de:San Jose, como Hunter, para los Rs SME, en el país CR

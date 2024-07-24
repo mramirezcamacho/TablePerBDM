@@ -1,7 +1,7 @@
 Farming BDM reynasalazarbecerra
 CKA
 Tiene los siguientes BDs:
-hugohipolitovalerio: de la ciudad de:Juárez(CHIH), como Farmer, para los Rs CKA, en el país MX
+hugohipolitovalerio: de la ciudad de:Juarez(CHIH), como Farmer, para los Rs CKA, en el país MX
 jesequezadatelles: de la ciudad de:Chihuahua, como Farmer, para los Rs CKA, en el país MX
 mtrevinosalazar: de la ciudad de:Chihuahua, como Farmer, para los Rs CKA, en el país MX
-wendyharohernandez: de la ciudad de:Juárez(CHIH), como Farmer, para los Rs CKA, en el país MX
+wendyharohernandez: de la ciudad de:Juarez(CHIH), como Farmer, para los Rs CKA, en el país MX

@@ -48,23 +48,26 @@ def getBasicData():
 
 distributionPerBDL = getBasicData()
 actualBigAssData = mainBigData(1, 1)
-jeje = [0, 0, 0, 0, 0, 0, 0, 0]
-column2evaluate = 'Daily Orders CKA'
-for bdl_name, importantStuff in actualBigAssData.items():
-    for key, dictOfColumns in importantStuff.items():
-        for column, listOfValues in dictOfColumns.items():
-            if column == column2evaluate:
-                for i, value in enumerate(listOfValues):
-                    try:
-                        if value == 'TBD':
-                            continue
-                        jeje[i] += float(value)
-                    except:
-                        print('bdl_name', bdl_name)
-                        print('key', key)
-                        print('column', column)
-                        print('listOfValues', listOfValues)
-                        print('value', value)
-                        raise Exception('Error')
-print(column2evaluate)
-print(jeje)
+rawData = pd.read_csv('rawData.csv')
+for column2compare in rawData['Requirements'].unique():
+    if column2compare not in ['CKAs imperfect orders', 'CKAs B cancellation rate', 'Promotion quality', 'Promotional Coverage']:
+        sumaTotal = [0, 0, 0, 0, 0, 0, 0, 0]
+        for bdl_name, importantStuff in actualBigAssData.items():
+            for key, dictOfColumns in importantStuff.items():
+                for column, listOfValues in dictOfColumns.items():
+                    if column == column2compare:
+                        for i, value in enumerate(listOfValues):
+                            try:
+                                if value == 'TBD':
+                                    continue
+                                sumaTotal[i] += float(value)
+                            except:
+                                print('bdl_name', bdl_name)
+                                print('key', key)
+                                print('column ' + '"'+column+'"')
+                                print('listOfValues', listOfValues)
+                                print('value', value)
+                                raise Exception('Error')
+        print('"'+column2compare+'"')
+        print(rawData[rawData['Requirements'] == column].values[0][1:])
+        print(sumaTotal)

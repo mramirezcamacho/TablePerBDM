@@ -158,7 +158,7 @@ def distributionOfBDsPerCountryPerRolePerOrganization():
     # basicDataDict = {'MX': MX_Data, 'MAC': MAC_Data, 'PE': PE_Data}
     basicDataDict = {'MX': MX_Data, 'MAC': MAC_Data, }
     distribution: dict = {}
-    for country, data in basicDataDict.items():
+    for doesntMatter, data in basicDataDict.items():
         for i, row in data.iterrows():
             country = row['Country']
             role = row['Role']

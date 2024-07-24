@@ -2,7 +2,7 @@ Farming BDM ccarrascomeza
 SME
 Tiene los siguientes BDs:
 elopezramirez: de la ciudad de:Chihuahua, como Farmer, para los Rs SME, en el país MX
-josueserranomedrano: de la ciudad de:Juárez(CHIH), como Farmer, para los Rs SME, en el país MX
+josueserranomedrano: de la ciudad de:Juarez(CHIH), como Farmer, para los Rs SME, en el país MX
 mquinterounzueta: de la ciudad de:Chihuahua, como Farmer, para los Rs SME, en el país MX
-ncordovaterrazas: de la ciudad de:Juárez(CHIH), como Farmer, para los Rs SME, en el país MX
-tgudinohernandez: de la ciudad de:Juárez(CHIH), como Farmer, para los Rs SME, en el país MX
+ncordovaterrazas: de la ciudad de:Juarez(CHIH), como Farmer, para los Rs SME, en el país MX
+tgudinohernandez: de la ciudad de:Juarez(CHIH), como Farmer, para los Rs SME, en el país MX

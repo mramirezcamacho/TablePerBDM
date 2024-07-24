@@ -228,6 +228,8 @@ def main(silence=True, justBDL=True):
                                                 print(f'{ciudad} not in table')
                                                 print(f'column {column}')
                                         else:
+                                            if column == 'CKA Total Rs Acquired (By BDs)':
+                                                pass
                                             if isBoth(column) and 'BOTH' in key:
                                                 suma += number*value * \
                                                     table[f'{organization}_{pais}'][ciudad]
@@ -235,7 +237,7 @@ def main(silence=True, justBDL=True):
                                                 suma += number*value * \
                                                     table[f'{organization}_{pais}'][ciudad]
                                             else:
-                                                continue
+                                                pass
                                     except:
                                         print('organizacion', organization)
                                         print('pais', pais)

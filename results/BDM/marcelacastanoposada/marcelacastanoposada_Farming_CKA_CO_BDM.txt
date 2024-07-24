@@ -1,7 +1,7 @@
 Farming BDM marcelacastanoposada
 CKA
 Tiene los siguientes BDs:
-melissagarzon: de la ciudad de:Medellín, como Farmer, para los Rs CKA, en el país CO
-antonioperezgalvan: de la ciudad de:Medellín, como Farmer, para los Rs CKA, en el país CO
-catalinamiranda: de la ciudad de:Medellín, como Farmer, para los Rs CKA, en el país CO
-jaimefajardojimenez: de la ciudad de:Medellín, como Farmer, para los Rs CKA, en el país CO
+melissagarzon: de la ciudad de:Medellin, como Farmer, para los Rs CKA, en el país CO
+antonioperezgalvan: de la ciudad de:Medellin, como Farmer, para los Rs CKA, en el país CO
+catalinamiranda: de la ciudad de:Medellin, como Farmer, para los Rs CKA, en el país CO
+jaimefajardojimenez: de la ciudad de:Medellin, como Farmer, para los Rs CKA, en el país CO

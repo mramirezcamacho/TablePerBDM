@@ -2,7 +2,7 @@ Farming BDM cindyibarrarivera
 SME
 Tiene los siguientes BDs:
 dvilchissanchez: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX
-galcazaravendano: de la ciudad de:Tuxtla Gutiérrez, como Farmer, para los Rs SME, en el país MX
+galcazaravendano: de la ciudad de:Tuxtla Gutierrez, como Farmer, para los Rs SME, en el país MX
 jovanychavezmartinez: de la ciudad de:Oaxaca, como Farmer, para los Rs SME, en el país MX
 ricardo.garcia_v: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX
 robertoterrazasramos: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX

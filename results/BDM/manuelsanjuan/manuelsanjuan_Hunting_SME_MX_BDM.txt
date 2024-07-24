@@ -1,7 +1,7 @@
 Hunting BDM manuelsanjuan
 SME
 Tiene los siguientes BDs:
-anabarronhernandez: de la ciudad de:León, como Hunter, para los Rs SME, en el país MX
-erickrosalesnoriega: de la ciudad de:Querétaro, como Hunter, para los Rs SME, en el país MX
+anabarronhernandez: de la ciudad de:Leon, como Hunter, para los Rs SME, en el país MX
+erickrosalesnoriega: de la ciudad de:Queretaro, como Hunter, para los Rs SME, en el país MX
 rmaldonadouvalle: de la ciudad de:Monterrey, como Hunter, para los Rs SME, en el país MX
 adrianamarquezmunoz: de la ciudad de:Aguascalientes, como Hunter, para los Rs SME, en el país MX

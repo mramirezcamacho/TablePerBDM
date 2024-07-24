@@ -1,6 +1,6 @@
 Farming BDM kevinmolina
 CKA
 Tiene los siguientes BDs:
-atavakolyramirez: de la ciudad de:San José, como Farmer, para los Rs CKA, en el país CR
-josevalverde: de la ciudad de:San José, como Farmer, para los Rs CKA, en el país CR
-gsandovalcisneros: de la ciudad de:San José, como Farmer, para los Rs CKA, en el país CR
+atavakolyramirez: de la ciudad de:San Jose, como Farmer, para los Rs CKA, en el país CR
+josevalverde: de la ciudad de:San Jose, como Farmer, para los Rs CKA, en el país CR
+gsandovalcisneros: de la ciudad de:San Jose, como Farmer, para los Rs CKA, en el país CR
