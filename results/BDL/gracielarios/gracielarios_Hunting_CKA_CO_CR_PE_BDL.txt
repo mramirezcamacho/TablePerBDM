@@ -1,9 +1,0 @@
-Hunting BDL gracielarios
-CKA
-Tiene los siguientes BDs:
-mramirezparra: de la ciudad de:Cali, como Hunter, para los Rs CKA, en el país CO
-davidreinosoaviles: de la ciudad de:Bogotá, D.C., como Hunter, para los Rs CKA, en el país CO
-andreabogota: de la ciudad de:Bogotá, D.C., como Hunter, para los Rs CKA, en el país CO
-allysonhidalgo: de la ciudad de:San José, como Hunter, para los Rs CKA, en el país CR
-sandraledesma: de la ciudad de:Lima, como Hunter, para los Rs CKA, en el país PE
-cindylazorumiche: de la ciudad de:Lima, como Hunter, para los Rs CKA, en el país PE
