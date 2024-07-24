@@ -91,142 +91,178 @@ def getRawData():
     return data
 
 
-def main():
+def main(silence=True, justBDL=True):
     bds = citiesPerBDM()
     columnsNeeded = getCSVDistribution()
     rawData = getRawData()
+    totalData: dict = {}
     for bd in bds:
-        if bd.bd_type == 'BDM':
-            secciones = list(bd.organizarDistribution().keys())
-            for seccion in secciones:
-                data = []
-                data.append(bd.name)
-                # print(seccion)
-                # pprint(paises4rol)
-                # return
-                ForH = seccion[0]
-                role = ''
-                if ForH == 'F':
-                    role = 'Farmer'
-                else:
-                    role = 'Hunter'
-                organization = seccion[1:]
-                keys = []
-                for key in list(bd.calculateDistribution().keys()):
-                    if role in key and organization in key:
-                        keys.append(key)
-                columns = columnsNeeded[seccion]
-                valuesToConsider = {}
-                for key in keys:
-                    ckasme, country, city, role = key.split('_')
-                    roleOpuesto = 'Hunter' if role == 'Farmer' else 'Farmer'
-                    if f'{ckasme}_{country}_{city}_{roleOpuesto}' in distributionOfBDsPerCountryPerRolePerOrganization():
-                        newKey = f'{ckasme}_{country}_{city}_BOTH'
-                        valuesToConsider[newKey] = bd.calculateDistribution(
-                        )[key]/(distributionOfBDsPerCountryPerRolePerOrganization()[key]+distributionOfBDsPerCountryPerRolePerOrganization()[f'{ckasme}_{country}_{city}_{roleOpuesto}'])
-                    valuesToConsider[key] = bd.calculateDistribution(
-                    )[key]/distributionOfBDsPerCountryPerRolePerOrganization()[key]
-                paises2consider: list = []
-                for key in list(valuesToConsider.keys()):
-                    if key.split('_')[1] not in paises2consider:
-                        paises2consider.append(key.split('_')[1])
-                paises2consider.sort()
+        if f'{bd.name}{bd.bd_type}' not in totalData:
+            if not justBDL:
+                totalData[f'{bd.name}{bd.bd_type}'] = {}
+            elif justBDL and bd.bd_type == 'BDL':
+                totalData[f'{bd.name}{bd.bd_type}'] = {}
+        secciones = list(bd.organizarDistribution().keys())
+        for seccion in secciones:
+            if f'{bd.name}{bd.bd_type}' in totalData:
+                if seccion not in totalData[f'{bd.name}{bd.bd_type}']:
+                    if not justBDL:
+                        totalData[f'{bd.name}{bd.bd_type}'][seccion] = {}
+                    elif justBDL and bd.bd_type == 'BDL':
+                        totalData[f'{bd.name}{bd.bd_type}'][seccion] = {}
 
-                for column in columns:
-                    table = getTablePerColumn(column)
-                    numbers = rawData[rawData['Requirements'] == column].copy()
-                    for i, miniColumna in enumerate(numbers.columns[1:]):
-                        if column == 'Promotional Coverage' or column == 'Promotion quality':
-                            data.append('TBD')
-                            continue
-                        if column == 'CKAs B cancellation rate' or column == 'CKAs imperfect orders':
-                            for paises in paises2consider:
-                                if paises not in miniColumna:
-                                    data.append('0')
-                                else:
-                                    toAppend = list(
-                                        rawData[rawData['Requirements'] == column].values[0][1:])
-                                    data.append(toAppend[i])
-                            continue
+            data = []
+            data.append(bd.name)
+            # print(seccion)
+            # pprint(paises4rol)
+            # return
+            ForH = seccion[0]
+            role = ''
+            if ForH == 'F':
+                role = 'Farmer'
+            else:
+                role = 'Hunter'
+            organization = seccion[1:]
+            keys = []
+            for key in list(bd.calculateDistribution().keys()):
+                if role in key and organization in key:
+                    keys.append(key)
+            columns = columnsNeeded[seccion]
+            valuesToConsider = {}
+            for key in keys:
+                ckasme, country, city, role = key.split('_')
+                roleOpuesto = 'Hunter' if role == 'Farmer' else 'Farmer'
+                if f'{ckasme}_{country}_{city}_{roleOpuesto}' in distributionOfBDsPerCountryPerRolePerOrganization():
+                    newKey = f'{ckasme}_{country}_{city}_BOTH'
+                    valuesToConsider[newKey] = bd.calculateDistribution(
+                    )[key]/(distributionOfBDsPerCountryPerRolePerOrganization()[key]+distributionOfBDsPerCountryPerRolePerOrganization()[f'{ckasme}_{country}_{city}_{roleOpuesto}'])
+                valuesToConsider[key] = bd.calculateDistribution(
+                )[key]/distributionOfBDsPerCountryPerRolePerOrganization()[key]
+            paises2consider: list = []
 
-                        suma = 0
-                        number = numbers[miniColumna].values[0]
-                        percentage = False
-                        if '%' in number:
-                            number = number.replace('%', '')
-                            number = float(number)/100
-                            number = str(number)
-                            percentage = True
-                        if number == 'TBD':
-                            existe = False
-                            for paises in paises2consider:
-                                if paises in miniColumna:
-                                    existe = True
-                                    break
-                            if not existe:
+            for key in list(valuesToConsider.keys()):
+                if key.split('_')[1] not in paises2consider:
+                    paises2consider.append(key.split('_')[1])
+            paises2consider.sort()
+
+            for column in columns:
+                if f'{bd.name}{bd.bd_type}' in totalData:
+                    if column not in totalData[f'{bd.name}{bd.bd_type}'][seccion]:
+                        if f'{bd.name}{bd.bd_type}' in totalData:
+                            totalData[f'{bd.name}{bd.bd_type}'][seccion][column] = [
+                            ]
+                table = getTablePerColumn(column)
+                numbers = rawData[rawData['Requirements'] == column].copy()
+                for i, miniColumna in enumerate(numbers.columns[1:]):
+                    if column == 'Promotional Coverage' or column == 'Promotion quality':
+                        data.append('TBD')
+                        if f'{bd.name}{bd.bd_type}' in totalData:
+                            totalData[f'{bd.name}{bd.bd_type}'][seccion][column].append(
+                                'TBD')
+                        continue
+                    if column == 'CKAs B cancellation rate' or column == 'CKAs imperfect orders':
+                        for paises in paises2consider:
+                            if paises not in miniColumna:
                                 data.append('0')
+                                if f'{bd.name}{bd.bd_type}' in totalData:
+                                    totalData[f'{bd.name}{bd.bd_type}'][seccion][column].append(
+                                        '0')
+
                             else:
-                                data.append('TBD')
-                            continue
-                        if 'k' in number:
-                            number = number.replace('k', '')
-                            number = float(number)*1000
+                                toAppend = list(
+                                    rawData[rawData['Requirements'] == column].values[0][1:])
+                                data.append(toAppend[i])
+                                if f'{bd.name}{bd.bd_type}' in totalData:
+                                    totalData[f'{bd.name}{bd.bd_type}'][seccion][column].append(
+                                        toAppend[i])
+                        continue
+
+                    suma = 0
+                    number = numbers[miniColumna].values[0]
+                    percentage = False
+                    if number == 'TBD':
+                        existe = False
+                        for paises in paises2consider:
+                            if paises in miniColumna:
+                                existe = True
+                                break
+                        if not existe:
+                            data.append('0')
+                            if f'{bd.name}{bd.bd_type}' in totalData:
+                                totalData[f'{bd.name}{bd.bd_type}'][seccion][column].append(
+                                    '0')
+
                         else:
-                            number = float(number)
-                        for pais in paises2consider:
-                            if pais in miniColumna:
-                                for key, value in valuesToConsider.items():
-                                    if pais in key:
-                                        ciudad = key.split('_')[2]
-                                        if "Bogot" in ciudad:
-                                            ciudad = 'Bogotá D.C.'
-                                        if 'á' in ciudad:
-                                            ciudad = ciudad.replace('á', 'a')
-                                        if 'é' in ciudad:
-                                            ciudad = ciudad.replace('é', 'e')
-                                        if 'í' in ciudad:
-                                            ciudad = ciudad.replace('í', 'i')
-                                        if 'ó' in ciudad:
-                                            ciudad = ciudad.replace('ó', 'o')
-                                        if 'ú' in ciudad:
-                                            ciudad = ciudad.replace('ú', 'u')
-                                        if 'Juarez(CHIH)' in ciudad:
-                                            ciudad = 'Juarez CHIH'
-                                        try:
-                                            if ciudad not in table[f'{organization}_{pais}']:
+                            data.append('TBD')
+                            if f'{bd.name}{bd.bd_type}' in totalData:
+                                totalData[f'{bd.name}{bd.bd_type}'][seccion][column].append(
+                                    'TBD')
+                        continue
+                    if 'k' in number:
+                        number = number.replace('k', '')
+                        number = float(number)*1000
+                    else:
+                        number = float(number)
+                    for pais in paises2consider:
+                        if pais in miniColumna:
+                            for key, value in valuesToConsider.items():
+                                if pais in key:
+                                    ciudad = key.split('_')[2]
+                                    if "Bogot" in ciudad:
+                                        ciudad = 'Bogotá D.C.'
+                                    if 'á' in ciudad:
+                                        ciudad = ciudad.replace('á', 'a')
+                                    if 'é' in ciudad:
+                                        ciudad = ciudad.replace('é', 'e')
+                                    if 'í' in ciudad:
+                                        ciudad = ciudad.replace('í', 'i')
+                                    if 'ó' in ciudad:
+                                        ciudad = ciudad.replace('ó', 'o')
+                                    if 'ú' in ciudad:
+                                        ciudad = ciudad.replace('ú', 'u')
+                                    if 'Juarez(CHIH)' in ciudad:
+                                        ciudad = 'Juarez CHIH'
+                                    try:
+                                        if ciudad not in table[f'{organization}_{pais}']:
+                                            if not silence:
                                                 print(f'{ciudad} not in table')
                                                 print(f'column {column}')
+                                        else:
+                                            if isBoth(column) and 'BOTH' in key:
+                                                suma += number*value * \
+                                                    table[f'{organization}_{pais}'][ciudad]
+                                            elif not isBoth(column) and 'BOTH' not in key:
+                                                suma += number*value * \
+                                                    table[f'{organization}_{pais}'][ciudad]
                                             else:
-                                                if isBoth(column) and 'BOTH' in key:
-                                                    suma += number*value * \
-                                                        table[f'{organization}_{pais}'][ciudad]
-                                                elif not isBoth(column) and 'BOTH' not in key:
-                                                    suma += number*value * \
-                                                        table[f'{organization}_{pais}'][ciudad]
-                                                else:
-                                                    continue
-                                        except:
-                                            print('organizacion', organization)
-                                            print('pais', pais)
-                                            print('ciudad', ciudad)
-                                            print('columna', column)
-                                            print('table', table)
-                                            raise ValueError
-                        if percentage:
-                            suma = f'{suma*100}%'
-                        else:
-                            if suma > 1 and suma != 0:
-                                suma = str(round(suma))
-                            elif suma < 1 and suma != 0:
-                                suma = 1
-                        data.append(suma)
-                pais = '_'.join(list(paises2consider))
-                if role == 'Farmer':
-                    csvData = ('Farming', organization, pais, bd)
-                else:
-                    csvData = ('Hunting', organization, pais, bd)
-                createCSV(data, *csvData)
-                createTxtExplaining(bd, *csvData[0:3])
+                                                continue
+                                    except:
+                                        print('organizacion', organization)
+                                        print('pais', pais)
+                                        print('ciudad', ciudad)
+                                        print('columna', column)
+                                        print('table', table)
+                                        raise ValueError
+                    if percentage:
+                        suma = f'{suma*100}%'
+                    # else:
+                    #     if suma > 1 and suma != 0:
+                    #         suma = str(round(suma))
+                    #     elif suma < 1 and suma != 0:
+                    #         suma = 1
+                    data.append(suma)
+                    if f'{bd.name}{bd.bd_type}' in totalData:
+                        totalData[f'{bd.name}{bd.bd_type}'][seccion][column].append(
+                            suma)
+            pais = '_'.join(list(paises2consider))
+            if role == 'Farmer':
+                csvData = ('Farming', organization, pais, bd)
+            else:
+                csvData = ('Hunting', organization, pais, bd)
+            createCSV(data, *csvData)
+            createTxtExplaining(bd, *csvData[0:3])
+    return totalData
 
 
-main()
+if __name__ == '__main__':
+    main(0, 0)
