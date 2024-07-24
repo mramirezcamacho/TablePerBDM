@@ -1,0 +1,35 @@
+Farming BDL juanvargas
+SME
+Tiene los siguientes BDs:
+amilcar: de la ciudad de:Veracruz, como Farmer, para los Rs SME, en el país MX
+angelyairfloresruiz: de la ciudad de:Xalapa, como Farmer, para los Rs SME, en el país MX
+fgonzalezhernandez: de la ciudad de:Coatzacoalcos, como Farmer, para los Rs SME, en el país MX
+fgonzalezhernandez: de la ciudad de:Minatitlan, como Farmer, para los Rs SME, en el país MX
+ifernandezhernandez: de la ciudad de:Xalapa, como Farmer, para los Rs SME, en el país MX
+ifernandezhernandez: de la ciudad de:Poza Rica de Hidalgo, como Farmer, para los Rs SME, en el país MX
+mfrancodrouaillet: de la ciudad de:Veracruz, como Farmer, para los Rs SME, en el país MX
+mmartinezescobar: de la ciudad de:Tlaxcala, como Farmer, para los Rs SME, en el país MX
+wendyalarconarjona: de la ciudad de:Veracruz, como Farmer, para los Rs SME, en el país MX
+adrianmelchyadame: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX
+bhernandezcasco: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX
+dvilchissanchez: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX
+galcazaravendano: de la ciudad de:Tuxtla Gutiérrez, como Farmer, para los Rs SME, en el país MX
+jovanychavezmartinez: de la ciudad de:Oaxaca, como Farmer, para los Rs SME, en el país MX
+ricardo.garcia_v: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX
+robertoterrazasramos: de la ciudad de:Puebla, como Farmer, para los Rs SME, en el país MX
+yrodriguezhernandez: de la ciudad de:Oaxaca, como Farmer, para los Rs SME, en el país MX
+alejandralugoalejo: de la ciudad de:Mérida, como Farmer, para los Rs SME, en el país MX
+davidmachorroacuna: de la ciudad de:Cancún, como Farmer, para los Rs SME, en el país MX
+efrainriveravidal: de la ciudad de:Mérida, como Farmer, para los Rs SME, en el país MX
+ecortezmonforte: de la ciudad de:Mérida, como Farmer, para los Rs SME, en el país MX
+javiertorrucogavito: de la ciudad de:Villahermosa, como Farmer, para los Rs SME, en el país MX
+julianalfarotejero: de la ciudad de:Campeche, como Farmer, para los Rs SME, en el país MX
+luisasenciomartinez: de la ciudad de:Villahermosa, como Farmer, para los Rs SME, en el país MX
+ronaldaguilarlopez: de la ciudad de:Cancún, como Farmer, para los Rs SME, en el país MX
+gtzompantzihernandez: de la ciudad de:Morelia, como Farmer, para los Rs SME, en el país MX
+anagomezibarra: de la ciudad de:Cuernavaca, como Farmer, para los Rs SME, en el país MX
+crodriguezgallardo: de la ciudad de:Pachuca, como Farmer, para los Rs SME, en el país MX
+erikgallardoortega: de la ciudad de:Morelia, como Farmer, para los Rs SME, en el país MX
+fjimenezmercado: de la ciudad de:Cuernavaca, como Farmer, para los Rs SME, en el país MX
+juan.manuel_v: de la ciudad de:Acapulco, como Farmer, para los Rs SME, en el país MX
+mcampeasleon: de la ciudad de:Morelia, como Farmer, para los Rs SME, en el país MX

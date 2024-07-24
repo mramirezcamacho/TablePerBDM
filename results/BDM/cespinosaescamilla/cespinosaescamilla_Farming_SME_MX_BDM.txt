@@ -1,0 +1,11 @@
+Farming BDM cespinosaescamilla
+SME
+Tiene los siguientes BDs:
+giovanni.cantero_v: de la ciudad de:Nuevo Laredo, como Farmer, para los Rs SME, en el país MX
+abelherreraperez: de la ciudad de:Monterrey, como Farmer, para los Rs SME, en el país MX
+edwintorresgarcia: de la ciudad de:Monterrey, como Farmer, para los Rs SME, en el país MX
+josecastilloledesma: de la ciudad de:Monterrey, como Farmer, para los Rs SME, en el país MX
+josemoralesnoyola: de la ciudad de:Monterrey, como Farmer, para los Rs SME, en el país MX
+marcohernandezovalle: de la ciudad de:Monterrey, como Farmer, para los Rs SME, en el país MX
+brendatorrestorres: de la ciudad de:Monterrey, como Farmer, para los Rs SME, en el país MX
+pedrozamorafaz: de la ciudad de:Matamoros, como Farmer, para los Rs SME, en el país MX
