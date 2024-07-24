@@ -86,6 +86,28 @@ class BD_ML():
                 distribution[key2save] += 1
         return distribution
 
+    def cities(self, country=None, organized=False):
+        cities = {}
+        for bd in self.bds:
+            if country is None:
+                if not organized:
+                    if bd.city not in cities:
+                        cities[bd.city] = 1
+                    else:
+                        cities[bd.city] += 1
+                else:
+                    if bd.country not in cities:
+                        cities[bd.country] = []
+                    if bd.city not in cities[bd.country]:
+                        cities[bd.country].append(bd.city)
+            else:
+                if bd.country == country:
+                    if bd.city not in cities:
+                        cities[bd.city] = 1
+                    else:
+                        cities[bd.city] += 1
+        return cities
+
     def calculateDistribution4search(self):
         distri = {}
         for bd in self.bds:
@@ -204,3 +226,12 @@ def citiesPerBDM() -> list:
                     bd_ML.addBD(bd)
                 bds.append(bd_ML)
     return bds
+
+
+def getBDLs():
+    bds = citiesPerBDM()
+    bdl = []
+    for bd in bds:
+        if bd.bd_type == 'BDL':
+            bdl.append(bd)
+    return bdl

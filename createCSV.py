@@ -91,10 +91,6 @@ def getRawData():
     return data
 
 
-def pair(bdML: BD_ML):
-    FH_data = getCSVDistribution()
-
-
 def main():
     bds = citiesPerBDM()
     columnsNeeded = getCSVDistribution()
