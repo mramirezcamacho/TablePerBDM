@@ -220,6 +220,11 @@ def main():
                                         raise ValueError
                     if percentage:
                         suma = f'{suma*100}%'
+                    else:
+                        if suma > 1 and suma != 0:
+                            suma = str(round(suma))
+                        elif suma < 1 and suma != 0:
+                            suma = 1
                     data.append(suma)
             pais = '_'.join(list(paises2consider))
             if role == 'Farmer':
