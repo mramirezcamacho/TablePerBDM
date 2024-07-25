@@ -1,20 +1,25 @@
 import pandas as pd
+import os
 
-# Define the paths to your CSV files
-csv1 = 'path/to/your/first_file.csv'
-csv2 = 'path/to/your/second_file.csv'
-csv3 = 'path/to/your/third_file.csv'
 
-# Read the CSV files into DataFrames
-df1 = pd.read_csv(csv1)
-df2 = pd.read_csv(csv2)
-df3 = pd.read_csv(csv3)
+def csv_to_excel(folder_path, output_excel):
+    # Crear un objeto de ExcelWriter
+    with pd.ExcelWriter(output_excel, engine='openpyxl') as writer:
+        # Iterar sobre todos los archivos en la carpeta
+        for filename in os.listdir(folder_path):
+            if filename.endswith('.csv'):
+                file_path = os.path.join(folder_path, filename)
+                # Leer el archivo CSV
+                df = pd.read_csv(file_path)
+                # Eliminar la extensión .csv para usar el nombre del archivo como nombre de la hoja
+                sheet_name = os.path.splitext(filename)[0]
+                # Guardar el DataFrame en una hoja de Excel
+                df.to_excel(writer, sheet_name=sheet_name, index=False)
+    print(f"All CSV files have been added to {output_excel}")
 
-# Create a Pandas Excel writer using openpyxl as the engine
-with pd.ExcelWriter('combined_file.xlsx', engine='openpyxl') as writer:
-    # Write each DataFrame to a different sheet
-    df1.to_excel(writer, sheet_name='Sheet1', index=False)
-    df2.to_excel(writer, sheet_name='Sheet2', index=False)
-    df3.to_excel(writer, sheet_name='Sheet3', index=False)
 
-print("Files have been combined into combined_file.xlsx")
+# Ejemplo de uso
+folder_path = 'BDL_tables'
+output_excel = 'AllBDLS2.xlsx'
+
+csv_to_excel(folder_path, output_excel)

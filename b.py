@@ -1,4 +1,0 @@
-from pprint import pprint
-from BD_data import distributionOfBDsPerCountryPerRolePerOrganization
-
-pprint(distributionOfBDsPerCountryPerRolePerOrganization())
