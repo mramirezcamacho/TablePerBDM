@@ -1,3 +1,4 @@
+import csv
 import os
 import pandas as pd
 from pprint import pprint
@@ -85,17 +86,20 @@ def getInterestingDataPerStructure(structure: dict, roleParameter: str, organiza
     return interesting
 
 
-def miniColumnaPerCountry(country, all=False):
+def miniColumnaPerCountry(country, region=None, all=False):
     if all:
-        return ['CO  - Baseline', 'CO  - Target', 'MX - Baseline', 'MX - Target', 'CR  - Baseline', 'CR  - Target', 'PE  - Baseline', 'PE  - Target']
+        return ['CO  - Baseline', 'CO  - Target', 'MX - Baseline', 'MX - Target', 'CR  - Baseline', 'CR  - Target', 'PE  - Baseline', 'PE  - Target', 'Norte - Baseline', 'Norte - Target', 'CDMX - Baseline', 'CDMX - Target', 'Pacifico - Baseline', 'Pacifico - Target', 'Sur - Baseline', 'Sur - Target']
     if country == 'CO':
         return ['CO  - Baseline', 'CO  - Target']
-    if country == 'MX':
-        return ['MX - Baseline', 'MX - Target']
     if country == 'CR':
         return ['CR  - Baseline', 'CR  - Target']
     if country == 'PE':
         return ['PE  - Baseline', 'PE  - Target']
+    if country == 'MX':
+        if region != None:
+            return [f'{region} - Baseline', f'{region} - Target', 'MX - Baseline', 'MX - Target']
+        else:
+            return ['MX - Baseline', 'MX - Target']
     return None
 
 
@@ -142,18 +146,37 @@ def main():
                     for miniColumn in miniColumns:
                         if miniColumn not in dataImportante[column]:
                             dataImportante[column][miniColumn] = 0
-                        datoBase = rawData[rawData['Requirements']
-                                           == column][miniColumn].values[0]
+                        try:
+                            datoBase = rawData[rawData['Requirements']
+                                               == column][miniColumn].values[0]
+                        except:
+                            if 'Baseline' in miniColumn:
+                                datoBase = rawData[rawData['Requirements']
+                                                   == column]['MX - Baseline'].values[0]
+                            else:
+                                datoBase = rawData[rawData['Requirements']
+                                                   == column]['MX - Target'].values[0]
+
                         dataImportante[column][miniColumn] = datoBase
                     continue
                 for dataInteresante in allInterestingData:
                     regionIntersante, organizationIntersante, roleIntersante = dataInteresante.split(
                         '_')
                     countryInteresante = countryOfRegion(regionIntersante)
-                    miniColumns = miniColumnaPerCountry(countryInteresante)
-                    for miniColumn in miniColumns:
-                        if miniColumn not in dataImportante[column]:
-                            dataImportante[column][miniColumn] = 0
+                    miniColumns = miniColumnaPerCountry(
+                        countryInteresante, regionIntersante)
+                    names2save = None
+                    if len(miniColumns) > 2:
+                        names2save = miniColumns[:2]
+                        miniColumns = (miniColumns[2], miniColumns[3])
+                    for i, miniColumn in enumerate(miniColumns):
+                        if names2save == None:
+                            if miniColumn not in dataImportante[column]:
+                                dataImportante[column][miniColumn] = 0
+                        else:
+                            if names2save[i] not in dataImportante[column]:
+                                dataImportante[column][names2save[i]] = 0
+
                         intermidiumState = rawData[rawData['Requirements']
                                                    == column][miniColumn]
                         if intermidiumState.empty:
@@ -162,8 +185,12 @@ def main():
                         baseNumber = intermidiumState.values[0]
                         baseNumber = makePrettyBaseNumber(baseNumber)
                         if baseNumber == 'TBD':
-                            dataImportante[column][miniColumn] = 'TBD'
-                            continue
+                            if names2save == None:
+                                dataImportante[column][miniColumn] = 'TBD'
+                                continue
+                            else:
+                                dataImportante[column][names2save[i]] = 'TBD'
+                                continue
                         porcentajePerRegion = table[organizationIntersante][countryInteresante][regionIntersante]
                         porcentajeAporte = 0
                         if isBoth(column):
@@ -175,8 +202,12 @@ def main():
                             denominador = dataDenominadores[regionIntersante][
                                 organizationIntersante][roleIntersante]
                         porcentajeAporte = (numerador / denominador)
-                        dataImportante[column][miniColumn] += porcentajePerRegion * \
-                            porcentajeAporte * baseNumber
+                        if names2save == None:
+                            dataImportante[column][miniColumn] += porcentajePerRegion * \
+                                porcentajeAporte * baseNumber
+                        else:
+                            dataImportante[column][names2save[i]] += porcentajePerRegion * \
+                                porcentajeAporte * baseNumber
         for column, miniDict in dataImportante.items():
             for miniColumn, value in miniDict.items():
                 if value != 'TBD':
@@ -189,7 +220,7 @@ def main():
     return result
 
 
-def itsWorking(columnParameter):
+def itsWorking(data, columnParameter):
     lalis = {}
     for bdName, dictWithStuff in data.items():
         for column, miniDict in dictWithStuff.items():
@@ -210,12 +241,68 @@ def itsWorking(columnParameter):
     print(rawData[rawData['Requirements'] == columnParameter].values[0][1:])
 
 
-if __name__ == '__main__':
-    data = main()
+def check(data):
     rawData = pd.read_csv('rawData.csv')
     columns = rawData['Requirements'].unique()
     for column in columns:
         print(column)
-        itsWorking(column)
+        itsWorking(data, column)
         print()
         print()
+
+
+def keepImportantStuff(bds_data):
+    stuff = {}
+    for bd, data in bds_data.items():
+        dataRelevant2Keep = []
+        for column, miniDict in data.items():
+            if column not in ['Promotional Coverage', 'Promotion quality', 'CKAs B cancellation rate', 'CKAs imperfect orders']:
+                for miniColumn, value in miniDict.items():
+                    if miniColumn not in dataRelevant2Keep:
+                        dataRelevant2Keep.append(miniColumn)
+        stuff[bd] = dataRelevant2Keep
+    # lets delete all miniColumns that are not in dataRelevant2Keep
+    for bd, data in bds_data.items():
+        dataRelevant2Keep = stuff[bd]
+        for column, miniDict in data.items():
+            for miniColumn in list(miniDict.keys()):
+                if miniColumn not in dataRelevant2Keep:
+                    del bds_data[bd][column][miniColumn]
+    for bd, data in bds_data.items():
+        for column, miniDict in data.items():
+            for importante in stuff[bd]:
+                if importante not in miniDict:
+                    bds_data[bd][column][importante] = 0
+    return bds_data, stuff
+
+
+def csv4bd(bds_data, columnsPerBd):
+    createFolderIfNotExists('BDL_tables')
+    for bd, data in bds_data.items():
+        filename = f"BDL_tables/{bd}.csv"
+        with open(filename, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            # Write header
+            header = ['Metric'] + columnsPerBd[bd]
+            writer.writerow(header)
+            # Write data
+            for metric, values in data.items():
+                row = [metric]
+                for column in columnsPerBd[bd]:
+                    value = values.get(column, 0)
+                    if value == 'TBD' or ('%' in str(value)):
+                        row.append(value)
+                    else:
+                        row.append(round(float(value)))
+                writer.writerow(row)
+    print("CSV files created successfully.")
+
+
+print("CSV files created successfully.")
+
+
+if __name__ == '__main__':
+    data = main()
+    # check(data)
+    data, stuff = keepImportantStuff(data)
+    csv4bd(data, stuff)
