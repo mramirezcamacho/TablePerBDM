@@ -2,6 +2,16 @@ import pandas as pd
 from pprint import pprint
 
 
+def prettifyName(name):
+    name = name.replace('á', 'a').replace('é', 'e').replace(
+        'í', 'i').replace('ó', 'o').replace('ú', 'u')
+    if name == 'Bogota, D.C.':
+        return 'Bogota D.C.'
+    if name == 'Juarez(CHIH)':
+        return 'Juarez CHIH'
+    return name
+
+
 class BD():
     def __init__(self, name, city, role, RsType, country):
         self.name = name
@@ -9,6 +19,18 @@ class BD():
         self.role = role.capitalize()
         self.RsType = RsType
         self.country = country
+        self.region = self.calculateRegion()
+
+    def calculateRegion(self):
+        dfRegion = pd.read_csv('MX_city_region.csv')
+        city = self.city
+        if self.country == 'MX':
+            city = prettifyName(city)
+            region = dfRegion[dfRegion['city_name']
+                              == city]['region'].values[0]
+            return region
+        else:
+            return city
 
     def __str__(self):
         return f'{self.name}: de la ciudad de:{self.city}, como {self.role}, para los Rs {self.RsType}, en el país {self.country}'
@@ -23,6 +45,14 @@ class BD_ML():
     def addBD(self, bd):
         self.bds.append(bd)
 
+    def combinaciones4columns(self):
+        combinaciones = []
+        for bd in self.bds:
+            key = f'{bd.role}_{bd.RsType}'
+            if key not in combinaciones:
+                combinaciones.append(key)
+        return combinaciones
+
     def cities(self):
         cities = {}
         for bd in self.bds:
@@ -31,6 +61,18 @@ class BD_ML():
             else:
                 cities[bd.city] += 1
         return cities
+
+    def structureForBDL(self):
+        structure = {}
+        for bd in self.bds:
+            if bd.region not in structure:
+                structure[bd.region] = {}
+            if bd.RsType not in structure[bd.region]:
+                structure[bd.region][bd.RsType] = {}
+            if bd.role not in structure[bd.region][bd.RsType]:
+                structure[bd.region][bd.RsType][bd.role] = 0
+            structure[bd.region][bd.RsType][bd.role] += 1
+        return structure
 
     def roles(self):
         roles = {}
@@ -226,6 +268,50 @@ def citiesPerBDM() -> list:
                     bd_ML.addBD(bd)
                 bds.append(bd_ML)
     return bds
+
+
+def getLittleBds():
+    MX_Data, MAC_Data = getBasicData()
+    basicDataDict = {'MX': MX_Data, 'MAC': MAC_Data}
+    BDM_MX, BDM_MAC, BDL_MX, BDL_MAC = getBDM_BDL()
+    BDMS_data = {'MX': BDM_MX, 'MAC': BDM_MAC, }
+    BDLS_data = {'MX': BDL_MX, 'MAC': BDL_MAC, }
+    bigData = {'BDM': BDMS_data, 'BDL': BDLS_data}
+    small_bds = []
+    bdsText = []
+    bds = []
+    for BdType, bigDatita in bigData.items():
+        for country, value in bigDatita.items():
+            for bdm in value:
+                bd_ML = BD_ML(bdm, BdType)
+                bdmData = basicDataDict[country][basicDataDict[country]
+                                                 [BdType] == bdm]
+                for index, row in bdmData.iterrows():
+                    bd = BD(row['BD Username'],
+                            row['Support city'], row['Role'].capitalize(), row['Vertical'], row['Country'])
+                    bd_ML.addBD(bd)
+                    if str(bd) not in bdsText:
+                        bdsText.append(str(bd))
+                        small_bds.append(bd)
+                bds.append(bd_ML)
+    return small_bds
+
+
+def structureForDistribution():
+    structure = {}
+    bds = getLittleBds()
+    for bd in bds:
+        if bd.region not in structure:
+            structure[bd.region] = {}
+        if bd.RsType not in structure[bd.region]:
+            structure[bd.region][bd.RsType] = {}
+        if bd.role not in structure[bd.region][bd.RsType]:
+            structure[bd.region][bd.RsType][bd.role] = 0
+        if 'Both' not in structure[bd.region][bd.RsType]:
+            structure[bd.region][bd.RsType]["Both"] = 0
+        structure[bd.region][bd.RsType][bd.role] += 1
+        structure[bd.region][bd.RsType]["Both"] += 1
+    return structure
 
 
 def getBDLs():

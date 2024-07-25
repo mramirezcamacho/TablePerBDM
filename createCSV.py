@@ -18,13 +18,13 @@ def isBoth(column):
 
 
 def getCSVDistribution():
-    FarmingCKAData = ['Daily Orders CKA', 'CKA Daily Orders for Rs FO in current year',
+    FarmingCKAData = ['Daily Orders CKA', 'Daily Orders of CKA Rs acquired in 2024',
                       'CKA # of R1s  (5+ Daily Orders)', 'Promotional Coverage', 'Promotion quality', 'CKAs B cancellation rate', 'CKAs imperfect orders',]
     FarmingSMEData = ['Daily Orders SME',
                       'SME Daily Orders for Rs FO in current year', 'SME # of R1s  (5+ Daily Orders)', 'Promotional Coverage', 'Promotion quality',]
     HuntingCKAData = ['Daily Orders CKA',
                       'CKA Total Rs Acquired (By BDs)', 'Daily Orders of CKA Rs acquired in 2024', 'CKA # of R1s  (5+ Daily Orders)']
-    HuntingSMEData = ['Daily Orders SME', 'Daily Orders of Rs acquired in 2024',
+    HuntingSMEData = ['Daily Orders SME', 'SME Daily Orders for Rs FO in current year',
                       'SME Total Rs Acquired (By BDs)', 'SME # of R1s  (5+ Daily Orders)']
     returnData = {'FCKA': FarmingCKAData, 'FSME': FarmingSMEData,
                   'HCKA': HuntingCKAData, 'HSME': HuntingSMEData}
@@ -53,7 +53,7 @@ def getTablePerColumn(column: str):
     newAdquireColumns: set = {
         'CKA Total Rs Acquired (By BDs)',  'SME Total Rs Acquired (By BDs)'}
     ordersOfNewAdquireColumns: set = {
-        'Daily Orders of Rs acquired in 2024', 'SME Daily Orders for Rs FO in current year', 'CKA Daily Orders for Rs FO in current year', 'Daily Orders of CKA Rs acquired in 2024'}
+        'SME Daily Orders for Rs FO in current year', 'SME Daily Orders for Rs FO in current year', 'Daily Orders of CKA Rs acquired in 2024', 'Daily Orders of CKA Rs acquired in 2024'}
     generalDailyOrdersColumns: set = {'Daily Orders CKA', 'Daily Orders SME'}
     if column in plus5Columns:
         return plus5Orders
@@ -80,7 +80,8 @@ def createCSV(data, FarmingHunting, CKASME, pais, bd):
                 rows[i][j] = data[int(rows[i][j])]
 
     # Write the modified content back to the CSV file
-    csv_final_file_path = f'results/{bd.bd_type}/{bd.name}/{bd.name}_{FarmingHunting}_{CKASME}_{pais}_{bd.bd_type}.csv'
+    csv_final_file_path = f'results/{bd.bd_type}/{bd.name}/{
+        bd.name}_{FarmingHunting}_{CKASME}_{pais}_{bd.bd_type}.csv'
     with open(csv_final_file_path, mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerows(rows)
@@ -232,10 +233,12 @@ def main(silence=True, justBDL=True):
                                                 pass
                                             if isBoth(column) and 'BOTH' in key:
                                                 suma += number*value * \
-                                                    table[f'{organization}_{pais}'][ciudad]
+                                                    table[f'{organization}_{
+                                                        pais}'][ciudad]
                                             elif not isBoth(column) and 'BOTH' not in key:
                                                 suma += number*value * \
-                                                    table[f'{organization}_{pais}'][ciudad]
+                                                    table[f'{organization}_{
+                                                        pais}'][ciudad]
                                             else:
                                                 pass
                                     except:

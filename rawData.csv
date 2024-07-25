@@ -1,7 +1,6 @@
 Requirements,MX - Baseline,MX - Target,CO  - Baseline,CO  - Target,PE  - Baseline,PE  - Target,CR  - Baseline,CR  - Target
 Daily Orders SME,87 k,111.0 k,9.56 k,14.65 k,2.29 k,2.58 k,2.02 k,2.43 k
 Daily Orders CKA,53.7 k,68.6 k,9.78 k,14.55 k,1.27 k,1.29 k,2.48 k,2.20 k
-Daily Orders of Rs acquired in 2024,10022,17392,2446,4201,1697,676,225,380
 SME Daily Orders for Rs FO in current year,10022,17392,2446,4201,1697,676,225,380
 SME Total Rs Acquired (By BDs),11823,10347,3407,2766,199,851,TBD,387
 SME # of R1s  (5+ Daily Orders),5517,8059,610,1105,89,122,103,133
@@ -9,7 +8,6 @@ Promotional Coverage,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD
 Promotion quality,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD
 CKA Total Rs Acquired (By BDs),2231,2208,TBD,969,TBD,425,TBD,118
 Daily Orders of CKA Rs acquired in 2024,6855,7077,2427,3523,722,651,435,142
-CKA Daily Orders for Rs FO in current year,6855,7077,2427,3523,722,651,435,142
 CKA # of R1s  (5+ Daily Orders),3174,4250,634,893,47,93,101,124
 CKAs B cancellation rate,1.26%,0.99%,1.33%,1.06%,1.76%,1.51%,1.78%,1.76%
 CKAs imperfect orders,1.87%,1.78%,2.29%,1.79%,2.76%,2.41%,2.29%,1.18%

@@ -1,11 +1,11 @@
 Hunting BDM jserranouribe
 SME
 Tiene los siguientes BDs:
-oscarchaves: de la ciudad de:Bogota, D.C., como Hunter, para los Rs SME, en el país CO
-wbermudezchaparro: de la ciudad de:Bogota, D.C., como Hunter, para los Rs SME, en el país CO
+oscarchaves: de la ciudad de:Bogota D.C., como Hunter, para los Rs SME, en el país CO
+wbermudezchaparro: de la ciudad de:Bogota D.C., como Hunter, para los Rs SME, en el país CO
 diegohenao: de la ciudad de:Medellin, como Hunter, para los Rs SME, en el país CO
-anyelosierrarico: de la ciudad de:Bogota, D.C., como Hunter, para los Rs SME, en el país CO
-sandracasas: de la ciudad de:Bogota, D.C., como Hunter, para los Rs SME, en el país CO
+anyelosierrarico: de la ciudad de:Bogota D.C., como Hunter, para los Rs SME, en el país CO
+sandracasas: de la ciudad de:Bogota D.C., como Hunter, para los Rs SME, en el país CO
 jinethrojas: de la ciudad de:Cali, como Hunter, para los Rs SME, en el país CO
 monicamena: de la ciudad de:Cali, como Hunter, para los Rs SME, en el país CO
 alejandroeussemunera: de la ciudad de:Medellin, como Hunter, para los Rs SME, en el país CO
