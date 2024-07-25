@@ -13,7 +13,9 @@ CKAs B cancellation rate,1.26%,0.99%,1.33%,1.06%,1.76%,1.51%,1.78%,1.76%
 CKAs imperfect orders,1.87%,1.78%,2.29%,1.79%,2.76%,2.41%,2.29%,1.18%
 CKA Meal Loss % GMV,0.75%,0.74%,1.17%,0.94%,1.46%,1.06%,1.03%,0.66%
 CKA B App orders on time rate,16.7%,15.7%,18.2%,14.7%,19.2%,20.1%,22.8%,16.6%
-CKA # Orders CDMX,0,0,0,0,0,0,0,0
+CKA # Orders CDMX,10592,12642,0,0,0,0,0,0
+CKA # Orders MTY,6090,7014,0,0,0,0,0,0
+CKA # Orders GDL,7518,8804,0,0,0,0,0,0
 CKA # Orders BOG,0,0,0,6575,0,0,0,0
 CKA # Orders MED,0,0,0,4761,0,0,0,0
 SME B cancel % orders,2.42%,1.94%,2.91%,2.16%,2.63%,2.43%,2.96%,2.39%
