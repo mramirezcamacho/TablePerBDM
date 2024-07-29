@@ -1,24 +1,24 @@
 Patricia Cataluna Diaz OKR's
 Metric,CO  - Baseline,CO  - Target,PE  - Baseline,PE  - Target,CR  - Baseline,CR  - Target
-CKA
-Daily Orders CKA,9780.0,14550.0,1270.0,1290.0,2480.0,2200.0
-CKA Total Rs Acquired (By BDs),TBD,969.0,TBD,425.0,TBD,118.0
-Daily Orders of CKA Rs acquired in 2024,2427.0,3523.0,722.0,651.0,435.0,142.0
-CKA # of R1s  (5+ Daily Orders),634.0,893.0,47.0,93.0,101.0,124.0
+CKA,-,-,-,-,-,-
+Daily Orders CKA,9780,14550,1270,1290,2480,2200
+CKA Total Rs Acquired (By BDs),TBD,969,TBD,425,TBD,118
+Daily Orders of CKA Rs acquired in 2024,2427,3523,722,651,435,142
+CKA # of R1s  (5+ Daily Orders),634,893,47,93,101,124
 CKAs B cancellation rate,1.33%,1.06%,1.76%,1.51%,1.78%,1.76%
 CKAs imperfect orders,2.29%,1.79%,2.76%,2.41%,2.29%,1.18%
 CKA Meal Loss % GMV,1.17%,0.94%,1.46%,1.06%,1.03%,0.66%
 CKA B App orders on time rate,18.2%,14.7%,19.2%,20.1%,22.8%,16.6%
-CKA # Orders BOG,0.0,6575.0,0.0,0.0,0.0,0.0
-CKA # Orders MED,0.0,4761.0,0.0,0.0,0.0,0.0
-SME
-Daily Orders SME,9560.0,14650.0,2290.0,2580.0,2020.0,2430.0
-SME Daily Orders for Rs FO in current year,2446.0,4201.0,1697.0,676.0,225.0,380.0
-SME Total Rs Acquired (By BDs),3407.0,2766.0,199.0,851.0,TBD,387.0
-SME # of R1s  (5+ Daily Orders),610.0,1105.0,89.0,122.0,103.0,133.0
+CKA # Orders BOG,0,6575,0,0,0,0
+CKA # Orders MED,0,4761,0,0,0,0
+SME,-,-,-,-,-,-
+Daily Orders SME,9560,14650,2290,2580,2020,2430
+SME Daily Orders for Rs FO in current year,2446,4201,1697,676,225,380
+SME Total Rs Acquired (By BDs),3407,2766,199,851,TBD,387
+SME # of R1s  (5+ Daily Orders),610,1105,89,122,103,133
 SME B cancel % orders,2.91%,2.16%,2.63%,2.43%,2.96%,2.39%
 SME imperfect orders,2.82%,2.44%,2.32%,2.05%,2.53%,1.54%
 SME Meal Loss % GMV,1.19%,0.86%,1.02%,0.86%,0.75%,0.62%
 SME B App orders on time rate,16.4%,12.8%,15.3%,16.7%,14.8%,14.9%
-SME # Orders BOG,4520.0,5634.0,0.0,0.0,0.0,0.0
-SME # Orders MED,3908.0,5214.0,0.0,0.0,0.0,0.0
+SME # Orders BOG,4520,5634,0,0,0,0
+SME # Orders MED,3908,5214,0,0,0,0

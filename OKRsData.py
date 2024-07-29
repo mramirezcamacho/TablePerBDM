@@ -90,6 +90,22 @@ def generatePerRegion(file, column) -> dict:
     return finalData
 
 
+def generatePerRegionPersonalizado(file, column, countryParameter: str, vertical: str, regions: list = [], excluding: list = []) -> dict:
+    sumaTotal = 0
+    data = generalGetter(file, column)
+    for key, dictOfCitiesAndPercentages in data.items():
+        organization, country = key.split('_')
+        if vertical == organization and country == countryParameter:
+            for city, percentage in dictOfCitiesAndPercentages.items():
+                if len(excluding) == 0:
+                    if city in regions:
+                        sumaTotal += percentage
+                else:
+                    if city not in excluding:
+                        sumaTotal += percentage
+    return sumaTotal
+
+
 plus5Orders = generalGetter('plus5orderRs.csv',
                             '5 + order store count(week total)')
 newAdquireRs = generalGetter('newRsOrders.csv', 'shop_cnt')
@@ -103,4 +119,11 @@ ordersOfNewAdquireRsRegion = generatePerRegion(
     'newRsOrders.csv', 'complete_orders')
 generalDailyOrdersRegion = generatePerRegion(
     'generalDailyOrders.csv', 'Daily Orders')
-# pprint(generalDailyOrdersRegion)
+# print('plus5OrdersRegion')
+# pprint(plus5OrdersRegion['CKA']['CO'])
+# print('newAdquireRsRegion')
+# pprint(newAdquireRsRegion['CKA']['CO'])
+# print('ordersOfNewAdquireRsRegion')
+# pprint(ordersOfNewAdquireRsRegion['CKA']['CO'])
+# print('generalDailyOrdersRegion')
+# pprint(generalDailyOrdersRegion['CKA']['CO'])

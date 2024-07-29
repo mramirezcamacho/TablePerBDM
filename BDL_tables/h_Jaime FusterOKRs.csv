@@ -1,6 +1,6 @@
 Jaime Fuster OKR's
 Metric,Norte - Baseline,Norte - Target
-SME
+SME,-,-
 Daily Orders SME,26886,34303
 SME Daily Orders for Rs FO in current year,2392,4151
 SME Total Rs Acquired (By BDs),2837,2483
@@ -9,3 +9,14 @@ SME B cancel % orders,2.42%,1.94%
 SME imperfect orders,1.91%,1.72%
 SME Meal Loss % GMV,0.50%,0.42%
 SME B App orders on time rate,13.80%,13.0%
+
+
+BDM,Daily Orders SME,SME Daily Orders for Rs FO in current year,SME Total Rs Acquired (By BDs),SME # of R1s  (5+ Daily Orders),SME B cancel % orders,SME imperfect orders,SME Meal Loss % GMV,SME B App orders on time rate
+Christian Enrique OKRs (Farmer),3675,445,266,272,1.94%,1.72%,0.42%,13.0%
+Cristopher Chocoteco OKRs (Farmer),4288,519,310,318,1.94%,1.72%,0.42%,13.0%
+Cynthia Judith Espinosa OKRs (Farmer),4900,593,355,363,1.94%,1.72%,0.42%,13.0%
+Fernando Javier OKRs (Farmer),3063,371,222,227,1.94%,1.72%,0.42%,13.0%
+Francisco Armando OKRs (Farmer),5513,667,399,409,1.94%,1.72%,0.42%,13.0%
+Juan Arturo Estrada OKRs (Farmer),5513,667,399,409,1.94%,1.72%,0.42%,13.0%
+Manuel San Juan OKRs (Farmer),2450,296,177,182,1.94%,1.72%,0.42%,13.0%
+Juan Eduardo Soto OKRs (Farmer),4900,593,355,363,1.94%,1.72%,0.42%,13.0%

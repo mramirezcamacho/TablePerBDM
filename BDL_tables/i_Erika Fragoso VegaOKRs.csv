@@ -1,6 +1,6 @@
 Erika Fragoso Vega OKR's
 Metric,CDMX - Baseline,CDMX - Target
-SME
+SME,-,-
 Daily Orders SME,16784,21414
 SME Daily Orders for Rs FO in current year,2502,4343
 SME Total Rs Acquired (By BDs),3489,3054
@@ -9,3 +9,12 @@ SME B cancel % orders,2.42%,1.94%
 SME imperfect orders,1.91%,1.72%
 SME Meal Loss % GMV,0.50%,0.42%
 SME B App orders on time rate,13.80%,13.0%
+
+
+BDM,Daily Orders SME,SME Daily Orders for Rs FO in current year,SME Total Rs Acquired (By BDs),SME # of R1s  (5+ Daily Orders),SME B cancel % orders,SME imperfect orders,SME Meal Loss % GMV,SME B App orders on time rate
+Jorge Garcia OKRs (Hunter),2920,592,1527,N/A,N/A,N/A,N/A,N/A
+Jorge Renato Sotelo OKRs (Farmer),3407,691,N/A,329,1.94%,1.72%,0.42%,13.0%
+Juan Jose Fierro OKRs (Farmer),3893,790,N/A,376,1.94%,1.72%,0.42%,13.0%
+Karin Luna OKRs (Farmer),4380,888,N/A,423,1.94%,1.72%,0.42%,13.0%
+Luis Enrique Quintero OKRs (Hunter),2920,592,1527,N/A,N/A,N/A,N/A,N/A
+Riccardo Picone OKRs (Farmer),3893,790,N/A,376,1.94%,1.72%,0.42%,13.0%

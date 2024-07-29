@@ -4,7 +4,6 @@ from openpyxl import Workbook
 from openpyxl.styles import Border, Side, Font, PatternFill
 import chardet
 
-
 # Path to the folder containing CSV files
 folder_path = 'BDL_tables'
 
@@ -24,12 +23,33 @@ border_style = Border(left=Side(border_style="thin"),
 bold_font = Font(bold=True)
 bold_big = Font(bold=True, size=14)
 
-for csv_file in csv_files:
+sheet_tab_colors = ['00ff00', 'ff9900', '0000ff', 'ffff00']
+
+# Define the fill style for rows containing 'SME' or 'CKA'
+highlight_hard_orange = PatternFill(
+    start_color='FF9900', end_color='FF9900', fill_type='solid')
+highlight_light_orange = PatternFill(
+    start_color='F6b26b', end_color='F6b26b', fill_type='solid')
+highlight_light_gray = PatternFill(
+    start_color='F3f3f3', end_color='F3f3f3', fill_type='solid')
+highlight_white = PatternFill(
+    start_color='FFFFFF', end_color='FFFFFF', fill_type='solid')
+
+for index, csv_file in enumerate(csv_files):
     # Extract sheet name from CSV file name (remove extension)
     sheet_name = os.path.splitext(csv_file)[0]
 
     # Create a new sheet in the workbook
     ws = wb.create_sheet(title=sheet_name[2:].replace('OKR', ' OKR'))
+
+    if index < 3:
+        ws.sheet_properties.tabColor = sheet_tab_colors[0]
+    elif index < 8:
+        ws.sheet_properties.tabColor = sheet_tab_colors[1]
+    elif index < len(csv_files) - 1:
+        ws.sheet_properties.tabColor = sheet_tab_colors[2]
+    else:
+        ws.sheet_properties.tabColor = sheet_tab_colors[3]
 
     # Open the CSV file and write its contents to the sheet
     with open(os.path.join(folder_path, csv_file), 'rb') as file:
@@ -42,7 +62,6 @@ for csv_file in csv_files:
         reader = csv.reader(file)
         for row in reader:
             ws.append(row)
-
     # Adjust column widths based on the maximum length of data in each column
     for column in ws.columns:
         max_length = 0
@@ -59,21 +78,43 @@ for csv_file in csv_files:
         ws.column_dimensions[column_letter].width = adjusted_width
 
     # Apply borders and bold formatting to specific cells
-    Colors = {}
+    toggle_white = True
     for row_index, row in enumerate(ws.iter_rows(), start=1):
+        highlight_row = None  # Flag to indicate if the row should be highlighted
+
         for cell in row:
             # Check if cell contains non-empty text
             if isinstance(cell.value, str) and cell.value.strip():
                 cell.border = border_style
-                if (cell.value in {'CKA', 'SME'}) or ('OKR' in cell.value) or ('Baseline' in cell.value) or ('Metric' in cell.value) or ('Target' in cell.value):
+                if (cell.value in {'CKA', 'SME'}) or ('OKR' in cell.value) or ('Baseline' in cell.value) or ('Metric' in cell.value) or ('Target' in cell.value) or ('BDM' in cell.value) or ('SME' in cell.value) or ('CKA' in cell.value):
                     cell.font = bold_font
-                if ('OKR' in cell.value):
+                if "OKR's" in cell.value:
                     cell.font = bold_big
-            if 'SME' in cell.value:
+                if cell.value == 'Metric' or cell.value == 'BDM':
+                    highlight_row = 'Hard Orange'
+                elif cell.value in {'CKA', 'SME'}:
+                    highlight_row = 'Light Orange'
+
+        # Apply highlight fill to the entire row if necessary
+        if highlight_row == 'Hard Orange':
+            fill = highlight_hard_orange
+        elif highlight_row == 'Light Orange':
+            fill = highlight_light_orange
+        else:
+            fill = highlight_white if toggle_white else highlight_light_gray
+            toggle_white = not toggle_white
+
+        for cell in row:
+            try:
+                if cell.value is not None and isinstance(cell.value, str):
+                    cell.fill = fill
+            except:
                 pass
 
-# TODO tengo que acabar de poner fuentes bonitas y cositas varias jeje
-# Remove the default sheet created by openpyxl
+        adjusted_width = (max_length + 2)  # Add a little extra space
+        ws.column_dimensions[column_letter].width = adjusted_width
+
+
 if 'Sheet' in wb.sheetnames:
     wb.remove(wb['Sheet'])
 

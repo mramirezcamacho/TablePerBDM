@@ -1,14 +1,14 @@
 Tomas Jaramillo OKR's
 Metric,MX - Baseline,MX - Target
-SME
-Daily Orders SME,87000.0,111000.0
-SME Daily Orders for Rs FO in current year,10022.0,17392.0
-SME Total Rs Acquired (By BDs),11823.0,10347.0
-SME # of R1s  (5+ Daily Orders),5517.0,8059.0
+SME,-,-
+Daily Orders SME,87000,111000
+SME Daily Orders for Rs FO in current year,10022,17392
+SME Total Rs Acquired (By BDs),11823,10347
+SME # of R1s  (5+ Daily Orders),5517,8059
 SME B cancel % orders,2.42%,1.94%
 SME imperfect orders,1.91%,1.72%
 SME Meal Loss % GMV,0.50%,0.42%
 SME B App orders on time rate,13.80%,13.0%
-SME # Orders CDMX,17919.0,20407.0
-SME # Orders MTY,7627.0,9055.0
-SME # Orders GDL,1103.0,12779.0
+SME # Orders CDMX,17919,20407
+SME # Orders MTY,7627,9055
+SME # Orders GDL,1103,12779
