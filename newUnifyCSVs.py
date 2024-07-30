@@ -1,7 +1,7 @@
 import os
 import csv
 from openpyxl import Workbook
-from openpyxl.styles import Border, Side, Font, PatternFill
+from openpyxl.styles import Border, Side, Font, PatternFill, Alignment
 import chardet
 
 # Path to the folder containing CSV files
@@ -113,7 +113,21 @@ for index, csv_file in enumerate(csv_files):
 
         adjusted_width = (max_length + 2)  # Add a little extra space
         ws.column_dimensions[column_letter].width = adjusted_width
-
+    for row in ws.iter_rows():
+        for cell in row:
+            text = cell.value
+            try:
+                text = int(text)
+                cell.number_format = '0'
+                cell.value = text
+                cell.alignment = Alignment(
+                    horizontal='center', vertical='center')
+            except:
+                pass
+            if cell.value != None:
+                if ("%" in str(cell.value) and 'SME' not in str(cell.value) and 'CKA' not in str(cell.value)) or ('TBD' in str(cell.value)):
+                    cell.alignment = Alignment(
+                        horizontal='center', vertical='center')
 
 if 'Sheet' in wb.sheetnames:
     wb.remove(wb['Sheet'])

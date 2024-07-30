@@ -10,7 +10,7 @@ def prettifyName(name):
     if name == 'Juarez(CHIH)':
         return 'Juarez CHIH'
     if 'Juarez(CHIH)' in name:
-        city = 'Juarez CHIH'
+        name = 'Juarez CHIH'
     return name
 
 

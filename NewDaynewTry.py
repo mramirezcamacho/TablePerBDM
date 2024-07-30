@@ -137,7 +137,7 @@ def personResponsabilitiesBigNames(person: str):
         },
         'sergiocanal': {
             'paises': ['MX',],
-            'divisiones': {'CKA': ['Daily Orders CKA', 'CKA Total Rs Acquired (By BDs)', 'Daily Orders of CKA Rs acquired in 2024', 'CKA # Orders CDMX',  'CKA # Orders MTY', 'CKA # Orders GDL',], }
+            'divisiones': {'CKA': ['Daily Orders CKA', 'Daily Orders of CKA Rs acquired in 2024', 'CKA # Orders CDMX',  'CKA # Orders MTY', 'CKA # Orders GDL',], }
         },
         'juanpablonostitajer': {
             'paises': ['MX',],
@@ -320,7 +320,6 @@ def createCSVBigNames(person: str, i: int):
                         if 'Target' in columna:
                             forLater[row][region] = round(multiplicador*(makePrettyBaseNumber(
                                 rawData[rawData['Requirements'] == row][realColumna].values[0])))
-
             csv2create.append(list2append)
     if person in getInferiores():
         csv2create.append([])
@@ -354,7 +353,16 @@ def createCSVBigNames(person: str, i: int):
             except:
                 typeBD, verticalBD, numberOfBDs, countryBD = description[
                     'type'], description['vertical'], description['numberOfBDs'], description['country']
-            typeBonito = 'Hunter' if typeBD == 'Hunting' else 'Farmer'
+
+            typeBonito = ''
+            if typeBD == 'Hibrido':
+                typeBonito = 'Hybrid'
+            elif typeBD == 'Hunting':
+                typeBonito = 'Hunter'
+            elif typeBD == 'Farming':
+                typeBonito = 'Farmer'
+            else:
+                typeBonito = 'N/A'
             list2append = [bd_name+f' OKRs ({typeBonito})',]
             for organizationName, listOfColumns in divisiones.items():
                 for column in listOfColumns:
@@ -393,6 +401,18 @@ def createCSVBigNames(person: str, i: int):
     createCSVbyList(csv2create, f'{chr(i+97)}_{getNiceName(person)}OKRs.csv')
 
 
+def getDataSergio():
+    data2return = {}
+    df = pd.read_csv('Ciudad-BDM.csv')
+    bdms = df['BDM'].unique()
+    for bdm in bdms:
+        data2know = df[df['BDM'] == bdm]
+        cities4thatBDM = list(data2know['Ciudad'].unique())
+        data2return[bdm] = {'type': 'Farming', 'vertical': 'CKA',
+                            'country': 'MX', 'region': cities4thatBDM}
+    return data2return
+
+
 def getInferiores():
     inferiores = {
         'gracielarios': {
@@ -428,14 +448,14 @@ def getInferiores():
             "Sandra Martinez": {"type": "Hunting", "vertical": "SME", 'numberOfBDs': 6, 'country': 'Pacifico'},
         },
         'jaimefuster': {
-            "Christian Enrique": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 6, 'country': 'Norte'},
-            "Cristopher Chocoteco": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 7, 'country': 'Norte'},
-            "Cynthia Judith Espinosa": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 8, 'country': 'Norte'},
-            "Fernando Javier": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 5, 'country': 'Norte'},
-            "Francisco Armando": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 9, 'country': 'Norte'},
-            "Juan Arturo Estrada": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 9, 'country': 'Norte'},
-            "Manuel San Juan": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 4, 'country': 'Norte'},
-            "Juan Eduardo Soto": {"type": "Hibrido", "vertical": "SME", 'numberOfBDs': 8, 'country': 'Norte'},
+            "Christian Enrique": {"type": "Farming", "vertical": "SME", 'numberOfBDs': 6, 'country': 'Norte'},
+            "Cristopher Chocoteco": {"type": "Farming", "vertical": "SME", 'numberOfBDs': 7, 'country': 'Norte'},
+            "Cynthia Judith Espinosa": {"type": "Farming", "vertical": "SME", 'numberOfBDs': 8, 'country': 'Norte'},
+            "Fernando Javier Olivares": {"type": "Hunting", "vertical": "SME", 'numberOfBDs': 5, 'country': 'Norte'},
+            "Francisco Armando": {"type": "Farming", "vertical": "SME", 'numberOfBDs': 9, 'country': 'Norte'},
+            "Juan Arturo Estrada": {"type": "Farming", "vertical": "SME", 'numberOfBDs': 9, 'country': 'Norte'},
+            "Manuel San Juan": {"type": "Hunting", "vertical": "SME", 'numberOfBDs': 4, 'country': 'Norte'},
+            "Juan Eduardo Soto": {"type": "Farming", "vertical": "SME", 'numberOfBDs': 8, 'country': 'Norte'},
         },
         'MAC BDL': {
             "Daniel Montalvo": {"type": "Farming", "region": "Bogota D.C. + Ciudades", "vertical": "SME", 'country': 'CO', 'excluding': ['Cali', 'Medellin']},
@@ -444,7 +464,8 @@ def getInferiores():
             "Omar Amayo": {"type": "Hibrido", "region": "All Peru", "vertical": "SME", 'country': 'PE'},
             "Mauricio Montero": {"type": "Hibrido", "region": "All Costa Rica", "vertical": "SME", 'country': 'CR'},
             "Julian Serrano": {"type": "Hunting", "region": "All Colombia", "vertical": "SME", 'country': 'CO'}
-        }
+        },
+        'sergiocanal': getDataSergio(),
     }
     return inferiores
 
